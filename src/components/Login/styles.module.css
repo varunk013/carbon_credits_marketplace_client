@@ -1,7 +1,7 @@
 .login_container {
 	width: 100%;
 	min-height: 100vh;
-	background-image: url('C:\Users\Varun\Downloads\back.png');
+	background-image: url('../../Assets/back.png');
 	background-color: #f5f5f5;
 	display: flex;
 	align-items: center;

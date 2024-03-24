@@ -1,9 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
+	const { login } = useAuth();
+	const navigate = useNavigate();
+
 	const [data, setData] = useState({ email: "", password: "" });
 	const [error, setError] = useState("");
 
@@ -14,10 +18,9 @@ const Login = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const url = "http://localhost:8080/api/auth";
-			const { data: res } = await axios.post(url, data);
-			localStorage.setItem("token", res.data);
-			window.location = "/";
+			await login(data.email, data.password)
+			navigate("/home");
+
 		} catch (error) {
 			if (
 				error.response &&

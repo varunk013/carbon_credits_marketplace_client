@@ -1,9 +1,10 @@
 import { useState } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
+import useAuth from "../../hooks/useAuth";
 
 const Signup = () => {
+	const { register } = useAuth();
 	const [data, setData] = useState({
 		firstName: "",
 		lastName: "",
@@ -20,18 +21,11 @@ const Signup = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const url = "http://localhost:8080/api/users";
-			const { data: res } = await axios.post(url, data);
-			navigate("/login");
-			console.log(res.message);
+			await register(data.email, data.firstName, data.lastName, data.password)
+			navigate("/home");
 		} catch (error) {
-			if (
-				error.response &&
-				error.response.status >= 400 &&
-				error.response.status <= 500
-			) {
-				setError(error.response.data.message);
-			}
+			setError(error);
+
 		}
 	};
 
