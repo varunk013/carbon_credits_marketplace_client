@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { Center, Spinner } from "@chakra-ui/react";
 import AuthGuard from "./components/AuthGuard";
+import GuestGuard from "./components/GuestGuard";
 
 const AppRoutes = () => {
   return (
@@ -53,6 +54,7 @@ const publicRoutes = [
     path: "/",
     Component: lazy(() => import("./components/Login")),
     pageTitle: "Login Page",
+    guard: GuestGuard
   },
   {
     path: "/Home",
@@ -64,11 +66,13 @@ const publicRoutes = [
     path: "/login",
     Component: lazy(() => import("./components/Login")),
     pageTitle: "Login Page",
+    guard: GuestGuard
   },
   {
     path: "/signup",
     Component: lazy(() => import("./components/Signup")),
     pageTitle: "SignUp Page",
+    guard: GuestGuard
   },
 ];
 export default AppRoutes;
